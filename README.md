@@ -1,51 +1,84 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Monicar Container
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A NestJS-based health monitoring and orchestration service that provides comprehensive health checks for multiple external services including HTTP APIs, Kafka, MongoDB, MySQL, and Redis.
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Monicar Container is a production-ready, containerized health monitoring and orchestration service built with [NestJS](https://nestjs.com). It provides comprehensive health checks and status monitoring for multiple external services in your infrastructure. The library is designed with extensibility in mind, using a pluggable architecture that allows you to easily add new health check strategies for any service type without modifying core code.
 
-## Project setup
+### Key Concepts
+
+**What is Monicar?**
+
+Monicar is a health monitoring orchestration framework that acts as a centralized health check aggregator. It monitors the availability, connectivity, and operational status of critical infrastructure services including message brokers (Kafka), databases (MongoDB, MySQL), caching layers (Redis), and HTTP APIs. This enables you to build resilient distributed systems by implementing proactive monitoring and alerting.
+
+**Why Use Monicar?**
+
+- **Centralized Monitoring**: Manage health checks for all critical services from a single endpoint
+- **Service Resilience**: Early detection of service failures enables faster failover and recovery
+- **Dependency Management**: Understand and track dependencies between services
+- **Infrastructure Observability**: Gain insights into your infrastructure health at a glance
+- **Automated Health Assessment**: Continuously monitor services without manual intervention
+
+### Core Architecture
+
+Monicar Container uses several design patterns to achieve flexibility and maintainability:
+
+- **Strategy Pattern**: Each service type (HTTP, Kafka, MongoDB, etc.) has a dedicated health check strategy
+- **Factory Pattern**: Dynamic instantiation of strategies based on configuration
+- **Registry Pattern**: Central registry to manage and access all registered health check strategies
+- **Observer Pattern**: Health status updates can trigger notifications and alerts
+
+### Features
+
+- **Multi-Service Health Checks**: Monitor HTTP APIs, Kafka, MongoDB, MySQL, and Redis with type-specific checks
+- **Pluggable Architecture**: Add custom health check strategies by implementing the strategy interface
+- **Configuration-Driven**: Define health checks through configuration without code changes
+- **Factory Pattern**: Automatic strategy instantiation and initialization
+- **Service Registry**: Central registry to manage and query all health check strategies
+- **Health Runner**: Execute health checks with configurable intervals and timeouts
+- **REST API**: Expose comprehensive health status and metrics through HTTP endpoints
+- **Error Handling**: Graceful error handling with detailed failure diagnostics
+- **Containerized**: Docker-optimized with proper environment variable support
+- **Type Safety**: Full TypeScript support with comprehensive type definitions
+- **E2E Testing**: Complete end-to-end test suite for validation
+
+### Typical Use Cases
+
+1. **Microservices Monitoring**: Monitor health of all microservices and dependencies in a microservices architecture
+2. **Infrastructure Health Dashboard**: Create dashboards showing real-time health status of all critical services
+3. **Dependency Checker**: Validate that all required services are available before accepting requests
+4. **Automated Recovery**: Trigger automated recovery procedures when services become unhealthy
+5. **SLA Monitoring**: Track service availability and generate SLA compliance reports
+6. **Health Gate**: Implement health gates in CI/CD pipelines to prevent deployments when dependencies are down
+
+## Project Setup
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
 
 ```bash
 $ npm install
 ```
 
-## Compile and run the project
+## Running the Application
 
 ```bash
-# development
+# development mode
 $ npm run start
 
-# watch mode
+# watch mode (with auto-reload)
 $ npm run start:dev
 
 # production mode
 $ npm run start:prod
 ```
 
-## Run tests
+## Running Tests
 
 ```bash
 # unit tests
@@ -58,42 +91,211 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
+## Docker Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Build and run the application in a Docker container:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+# Build the image
+$ docker build -t monicar-container .
+
+# Run the container
+$ docker run -p 3000:3000 monicar-container
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Project Structure
 
-## Resources
+```
+src/
+├── app.module.ts              # Main application module
+├── main.ts                    # Application entry point
+└── monicar/
+    ├── monicar.controller.ts  # REST API endpoints
+    ├── monicar.service.ts     # Business logic
+    ├── monicar.factory.ts     # Strategy factory
+    ├── monicar.runner.ts      # Health check executor
+    ├── monicar.registry.ts    # Strategy registry
+    ├── monicar.module.ts      # Monicar module configuration
+    ├── interfaces/            # TypeScript interfaces and types
+    └── strategies/            # Health check implementations
+        ├── http/
+        ├── kafka/
+        ├── mongodb/
+        ├── mysql/
+        └── redis/
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Supported Health Check Strategies
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### HTTP API
+- **Purpose**: Monitor HTTP API availability and responsiveness
+- **Checks**: Endpoint reachability, response time, HTTP status codes
+- **Configuration**: URL, method, timeout, expected status codes
+- **Use Cases**: Monitor REST endpoints, microservice availability, external API dependencies
 
-## Support
+### Kafka
+- **Purpose**: Verify Kafka broker connectivity and cluster health
+- **Checks**: Broker connectivity, topic availability, producer/consumer functionality
+- **Configuration**: Broker addresses, authentication credentials, connection timeout
+- **Use Cases**: Message queue health in event-driven architectures, stream processing pipelines
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### MongoDB
+- **Purpose**: Monitor MongoDB database connectivity and operational status
+- **Checks**: Connection pooling, database accessibility, read/write operations
+- **Configuration**: Connection string, authentication, timeout settings
+- **Use Cases**: Database availability in NoSQL applications, replica set monitoring
 
-## Stay in touch
+### MySQL
+- **Purpose**: Assess MySQL database health and availability
+- **Checks**: TCP connection, authentication, query execution capabilities
+- **Configuration**: Host, port, credentials, database selection
+- **Use Cases**: Traditional relational database monitoring, SQL server health checks
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Redis
+- **Purpose**: Check Redis cache and in-memory data store health
+- **Checks**: Connection establishment, PING response, memory availability
+- **Configuration**: Host, port, password, timeout settings
+- **Use Cases**: Cache layer monitoring, session storage health, real-time data store availability
+
+## How It Works
+
+1. **Configuration**: Define health check configurations for your services
+2. **Factory**: Monicar factory creates appropriate health check strategy instances based on service type
+3. **Registration**: Strategies are registered in the central registry for management
+4. **Execution**: Health runner executes checks on configured intervals
+5. **Aggregation**: Results are aggregated and exposed through REST API endpoints
+6. **Monitoring**: External systems can query the health status and take appropriate actions
+
+## Extension Guide
+
+To add a new health check strategy:
+
+1. Implement the `HealthStrategy` interface
+2. Create a strategy class that matches the interface requirements
+3. Register the strategy in the factory
+4. Configure and deploy
+
+The pluggable architecture ensures minimal impact on existing code when adding new service types.
+
+## Advanced Configuration
+
+### Health Observer Options
+Configure custom behavior for health checks including:
+- Check execution intervals
+- Timeout thresholds
+- Retry policies
+- Notification triggers
+
+### Results Management
+Access detailed health check results including:
+- Service status (healthy/unhealthy)
+- Response times
+- Error messages and diagnostics
+- Timestamp and execution history
+
+## API Endpoints
+
+The application exposes REST endpoints for querying health status. Key endpoints include:
+- `GET /health` - Overall system health
+- `GET /health/:service` - Specific service health
+- `GET /health/all` - All services health status
+- See [monicar.controller.ts](src/monicar/monicar.controller.ts) for complete endpoint documentation
+
+## Configuration Examples
+
+### Environment Variables
+```bash
+# Service Configuration
+MONICAR_HTTP_URL=http://api.example.com/health
+MONICAR_KAFKA_BROKERS=localhost:9092
+MONICAR_MONGODB_URI=mongodb://localhost:27017/health
+MONICAR_MYSQL_HOST=localhost
+MONICAR_MYSQL_PORT=3306
+MONICAR_REDIS_HOST=localhost
+MONICAR_REDIS_PORT=6379
+
+# Health Check Configuration
+HEALTH_CHECK_INTERVAL=30000  # milliseconds
+HEALTH_CHECK_TIMEOUT=5000    # milliseconds
+```
+
+### Service Configuration File
+Create a config file to define your health check strategies:
+```json
+{
+  "services": [
+    {
+      "name": "api-service",
+      "type": "http",
+      "config": {
+        "url": "http://api.example.com/health",
+        "method": "GET",
+        "timeout": 5000
+      }
+    },
+    {
+      "name": "message-broker",
+      "type": "kafka",
+      "config": {
+        "brokers": ["localhost:9092"],
+        "timeout": 5000
+      }
+    },
+    {
+      "name": "primary-db",
+      "type": "mongodb",
+      "config": {
+        "uri": "mongodb://localhost:27017/myapp",
+        "timeout": 5000
+      }
+    }
+  ]
+}
+```
+
+## Best Practices
+
+1. **Health Check Intervals**: Balance between monitoring responsiveness and system load. Typical values: 15-60 seconds
+2. **Timeout Configuration**: Set timeouts appropriate to expected response times. Use 2-3x the normal response time
+3. **Failure Handling**: Implement retry logic with exponential backoff for transient failures
+4. **Alerting**: Integrate with alerting systems to be notified of service failures
+5. **Logging**: Enable comprehensive logging for debugging and audit trails
+6. **Security**: Use secure connections (TLS/SSL) for sensitive services
+7. **Resource Management**: Monitor Monicar container resource usage to prevent monitoring overhead
+8. **Failover Strategy**: Define actions to take when dependencies become unavailable
+
+## Troubleshooting
+
+### Health Check Not Running
+- Verify service configuration is correct
+- Check network connectivity to target services
+- Ensure services are accessible from the monitoring container
+- Review logs for specific error messages
+
+### High CPU Usage
+- Increase health check intervals to reduce frequency
+- Review strategy implementations for inefficiencies
+- Check for connection pool exhaustion
+
+### Timeout Errors
+- Increase timeout values if services are slow to respond
+- Verify network latency to service endpoints
+- Check service load and available resources
+
+### Authentication Failures
+- Verify credentials in configuration
+- Ensure credentials have appropriate permissions
+- Check for credential expiration or rotation issues
+
+## Contributing
+
+Contributions are welcome! If you'd like to add support for additional service types or improve existing strategies:
+
+1. Fork the repository
+2. Create a feature branch
+3. Implement your changes with tests
+4. Submit a pull request
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License.
